@@ -53,3 +53,6 @@ dkms.conf
 Debug
 *.launch
 .settings
+
+# Ejercicios resueltos
+resueltos.c

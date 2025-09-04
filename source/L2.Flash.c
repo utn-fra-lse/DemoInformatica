@@ -19,8 +19,8 @@ uint32_t Erase_Sector(uint8_t sector_inicio, uint8_t sector_fin, uint32_t freq_b
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
-// Borra sector de flash
-// Parametro: sector de inicio, sector de fin, frecuencia de clock mcu
+// Borra pagina de flash
+// Parametro: pagina de inicio, pagina de fin, frecuencia de clock mcu
 // Devuelve: nada
 //------------------------------------------------------------------------
 uint32_t Erase_Page(uint8_t page_inicio, uint8_t page_fin, uint32_t freq_bus){

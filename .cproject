@@ -19,7 +19,7 @@
 					<folderInfo id="com.crt.advproject.config.exe.debug.1280215115." name="/" resourcePath="">
 						<toolChain id="com.crt.advproject.toolchain.exe.debug.1806484306" name="NXP MCU Tools" superClass="com.crt.advproject.toolchain.exe.debug">
 							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="com.crt.advproject.platform.exe.debug.50016741" name="ARM-based MCU (Debug)" superClass="com.crt.advproject.platform.exe.debug"/>
-							<builder buildPath="${workspace_loc:/DemoInfo1}/Debug" id="com.crt.advproject.builder.exe.debug.1955632804" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="com.crt.advproject.builder.exe.debug"/>
+							<builder buildPath="${workspace_loc:/clase_micros}/Debug" id="com.crt.advproject.builder.exe.debug.1955632804" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="com.crt.advproject.builder.exe.debug"/>
 							<tool id="com.crt.advproject.cpp.exe.debug.1868936254" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.exe.debug">
 								<option id="com.crt.advproject.cpp.arch.2029925256" name="Architecture" superClass="com.crt.advproject.cpp.arch" useByScannerDiscovery="true" value="com.crt.advproject.cpp.target.cm0plus" valueType="enumerated"/>
 								<option id="com.crt.advproject.cpp.misc.dialect.479393218" name="Language standard" superClass="com.crt.advproject.cpp.misc.dialect" useByScannerDiscovery="true"/>
@@ -242,7 +242,7 @@
 								<option id="com.crt.advproject.link.gcc.lto.optmization.level.894969653" name="Link-time optimization level" superClass="com.crt.advproject.link.gcc.lto.optmization.level" useByScannerDiscovery="false"/>
 								<option id="com.crt.advproject.link.fpu.951694719" name="Floating point" superClass="com.crt.advproject.link.fpu" useByScannerDiscovery="false"/>
 								<option id="com.crt.advproject.link.manage.534050988" name="Manage linker script" superClass="com.crt.advproject.link.manage" useByScannerDiscovery="false" value="true" valueType="boolean"/>
-								<option id="com.crt.advproject.link.script.509781375" name="Linker script" superClass="com.crt.advproject.link.script" useByScannerDiscovery="false" value="DemoInfo1_Debug.ld" valueType="string"/>
+								<option id="com.crt.advproject.link.script.509781375" name="Linker script" superClass="com.crt.advproject.link.script" useByScannerDiscovery="false" value="clase_micros_Debug.ld" valueType="string"/>
 								<option id="com.crt.advproject.link.scriptdir.675935177" name="Script path" superClass="com.crt.advproject.link.scriptdir" useByScannerDiscovery="false"/>
 								<option id="com.crt.advproject.link.crpenable.116903048" name="Enable automatic placement of Code Read Protection field in image" superClass="com.crt.advproject.link.crpenable" useByScannerDiscovery="false"/>
 								<option id="com.crt.advproject.link.flashconfigenable.172454246" name="Enable automatic placement of Flash Configuration field in image" superClass="com.crt.advproject.link.flashconfigenable" useByScannerDiscovery="false" value="true" valueType="boolean"/>
@@ -309,7 +309,7 @@
 					<folderInfo id="com.crt.advproject.config.exe.release.1318942043." name="/" resourcePath="">
 						<toolChain id="com.crt.advproject.toolchain.exe.release.326436620" name="NXP MCU Tools" superClass="com.crt.advproject.toolchain.exe.release">
 							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="com.crt.advproject.platform.exe.release.1099099319" name="ARM-based MCU (Release)" superClass="com.crt.advproject.platform.exe.release"/>
-							<builder buildPath="${workspace_loc:/DemoInfo1}/Release" id="com.crt.advproject.builder.exe.release.1531583672" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="com.crt.advproject.builder.exe.release"/>
+							<builder buildPath="${workspace_loc:/clase_micros}/Release" id="com.crt.advproject.builder.exe.release.1531583672" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="com.crt.advproject.builder.exe.release"/>
 							<tool id="com.crt.advproject.cpp.exe.release.471923447" name="MCU C++ Compiler" superClass="com.crt.advproject.cpp.exe.release">
 								<option id="com.crt.advproject.cpp.arch.1441998014" superClass="com.crt.advproject.cpp.arch" useByScannerDiscovery="true" value="com.crt.advproject.cpp.target.cm0plus" valueType="enumerated"/>
 								<option id="com.crt.advproject.cpp.misc.dialect.296821271" superClass="com.crt.advproject.cpp.misc.dialect" useByScannerDiscovery="true"/>
@@ -526,7 +526,7 @@
 								<option id="com.crt.advproject.link.gcc.lto.optmization.level.701940858" superClass="com.crt.advproject.link.gcc.lto.optmization.level"/>
 								<option id="com.crt.advproject.link.fpu.1426705804" superClass="com.crt.advproject.link.fpu"/>
 								<option id="com.crt.advproject.link.manage.259261863" superClass="com.crt.advproject.link.manage" value="true" valueType="boolean"/>
-								<option id="com.crt.advproject.link.script.812987526" superClass="com.crt.advproject.link.script" value="DemoInfo1_Release.ld" valueType="string"/>
+								<option id="com.crt.advproject.link.script.812987526" superClass="com.crt.advproject.link.script" value="clase_micros_Release.ld" valueType="string"/>
 								<option id="com.crt.advproject.link.scriptdir.1679378690" superClass="com.crt.advproject.link.scriptdir"/>
 								<option id="com.crt.advproject.link.crpenable.1689364545" superClass="com.crt.advproject.link.crpenable"/>
 								<option id="com.crt.advproject.link.flashconfigenable.984081142" superClass="com.crt.advproject.link.flashconfigenable" value="true" valueType="boolean"/>
@@ -576,7 +576,7 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="DemoInfo1.null.182266738" name="DemoInfo1" projectType="com.crt.advproject.projecttype.exe"/>
+		<project id="clase_micros.null.182266738" name="clase_micros" projectType="com.crt.advproject.projecttype.exe"/>
 	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>

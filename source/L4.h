@@ -5,13 +5,15 @@
 // enumeraciones
 //------------------------------------------------------------------------------------------------------
 enum adcs { ADC0_CH0, ADC0_CH1, ADC0_CH2, ADC0_CH3, ADC0_CH4, ADC0_CH5, ADC0_CH6, ADC0_CH7, ADC0_CH8, ADC0_CH9, ADC0_CH10, ADC0_CH11};
-enum Leds { NA, BLUE, RED, GREEN, WBLUE };
+enum Leds_buzzer { ALL_LEDS, BLUE, RED, GREEN, WBLUE, BUZZER };
 
 //------------------------------------------------------------------------------------------------------
 // defines
 //------------------------------------------------------------------------------------------------------
 #define CONSOLE_ENABLE 	0
 #define USART_ENABLE 	1	// 0 consola local, != 0 consola por uart
+
+#define PANTALLA CONSOLE_ENABLE
 
 #define BUFFER_UART_RX_SIZE 70
 #define BUFFER_UART_TX_SIZE 128
@@ -68,6 +70,18 @@ void Led_On(uint8_t led);
 void Led_Off(uint8_t led);
 //------------------------------------------------------------------------------------------------------
 /*!
+ * Cambia de estado el led seleccionado
+ * parametros: (uint8_t) BLUE, GREEN, RED o WBLUE
+ */
+void Led_Toggle(uint8_t led);
+//------------------------------------------------------------------------------------------------------
+/*!
+ * Enciende el led WBLUE con brillo de 0 a 100
+ * parametros: (uint8_t) brillo
+ */
+void Bright_Led(uint8_t bness);
+//------------------------------------------------------------------------------------------------------
+/*!
  * Genera demoras en milisegundos
  * parametros: (uint32_t) milisegundos 
  */
@@ -84,6 +98,18 @@ uint16_t Get_R21(void);
  * retorno: (uint16_t) valor analogico
  */
 uint16_t Get_R22(void);
+//------------------------------------------------------------------------------------------------------
+/*!
+ * Hace sonar el Buzzer a una frecuencia determinada
+ * parametros: (uint32_t) frecuencia, (uint32_t) milisegundos
+ */
+void Sound(uint32_t freq, uint32_t mseg);
+//------------------------------------------------------------------------------------------------------
+/*!
+ * Hace sonar el Buzzer a 2500kHz
+ * parametros: (uint32_t) milisegundos
+ */
+void Beep(uint32_t mseg);
 //------------------------------------------------------------------------------------------------------
 /*!
  * Obtiene temperatura
@@ -108,6 +134,12 @@ uint16_t Get_Pressure(void);
  * retorno: (uint16_t) intensidad luminica en LUX
  */
 uint16_t Get_Lux(void);
+//------------------------------------------------------------------------------------------------------
+/*!
+ * Obtiene estado de la salida del CNY70
+ * retorno: (uint8_t) 0 = sin objeto, 1 = objeto detectado
+ */
+uint8_t Get_CNY70(void);
 //------------------------------------------------------------------------------------------------------
 /*!
  * Escribe valor en display 7 segmentos de 2 digitos

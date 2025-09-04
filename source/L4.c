@@ -8,6 +8,7 @@ uint16_t adc_ch[12];
 uint8_t lcd_switch = REFRESH_7SEG, new_refresh = REFRESH_7SEG, up_no_down = 0;
 uint8_t	dig[3]="00", digitos_7seg = 0, dig_on = DIGIT_1;
 uint8_t	buffer_txd[BUFFER_UART_TX_SIZE], buffer_rxd0[BUFFER_UART_RX_SIZE], buffer_rxd1[BUFFER_UART_RX_SIZE];
+uint8_t pwm_started = 0;
 //------------------------------------------------------------------------------------------------------
 void ctimer_match0_interrupt(void){
 }
@@ -20,6 +21,7 @@ void ctimer_match0_interrupt(void){
 void Kit_Cortex_Init(){
 	ClockFRO30M();
 	GPIO_Init();
+	Led_Off(ALL_LEDS);
 	#if CONSOLE_LOCAL == 0
 		DebugConsole_Init();
 	#else
@@ -71,11 +73,13 @@ void Led_On(uint8_t led){
 			RED_LED_ON; GREEN_LED_OFF; BLUE_LED_OFF;
 			break;
 		case WBLUE:
-			WC_LED_ON; 
+			WC_LED_ON;
+			break;
+		case ALL_LEDS:
+			WC_LED_ON; BLUE_LED_ON;
+			RED_LED_ON; GREEN_LED_ON;
 			break;
 		default:
-			WC_LED_OFF; BLUE_LED_OFF; 
-			RED_LED_OFF; GREEN_LED_OFF;
 			break;
 	}
 }
@@ -99,11 +103,79 @@ void Led_Off(uint8_t led){
 		case WBLUE:
 			WC_LED_OFF; 
 			break;
-		default:
+		case ALL_LEDS:
 			WC_LED_OFF; BLUE_LED_OFF; 
 			RED_LED_OFF; GREEN_LED_OFF;
 			break;
+		default:
+			break;
 	}
+}
+
+//------------------------------------------------------------------------------------------------------
+/*!
+ * Cambia de estado el led seleccionado
+ * parametros: (uint8_t) BLUE, GREEN, RED o WBLUE
+ */
+void Led_Toggle(uint8_t led){
+	switch (led)
+	{
+		case BLUE:
+			BLUE_LED_TOGGLE;
+			break;
+		case GREEN:
+			GREEN_LED_TOGGLE;
+			break;
+		case RED:
+			RED_LED_TOGGLE;
+			break;
+		case WBLUE:
+			WC_LED_TOGGLE;
+			break;
+		default:
+			break;
+	}
+}
+//------------------------------------------------------------------------------------------------------
+/*!
+ * Enciende el led WBLUE con brillo de 0 a 100
+ * parametros: (uint8_t) brillo
+ */
+void Bright_Led(uint8_t bness){
+
+	if(bness < 0 || bness > 100)
+		return;
+
+	if (bness == 0){
+		if (pwm_started == WBLUE){
+			pwm_started = 0;
+			PWM_Stop();
+			PWM_DeInit();
+			Led_Off(WBLUE);
+			return;
+		}
+	}
+
+	// Si ya estaba activo el PWM para el BUZZER se desactiva
+	if (pwm_started == BUZZER){
+		pwm_started = 0;
+		PWM_Stop();
+		PWM_DeInit();
+	}
+
+	if (bness > 0 && bness < 100){
+		if (pwm_started == 0){
+			pwm_started = WBLUE;
+			PWM_Init(kSWM_PortPin_P0_29);
+			PWM_Start(10000, bness);
+			return;
+		}
+		if (pwm_started == WBLUE){
+			PWM_UpdateDuty_Out2(bness);
+			return;
+		}
+	}
+
 }
 //------------------------------------------------------------------------------------------------------
 /*!
@@ -134,6 +206,40 @@ uint16_t Get_R22(void){
 	while(adc_data_valid == FALSE);
    	adc_data_valid = FALSE;
 	return adc_ch[8];
+}
+//------------------------------------------------------------------------------------------------------
+/*!
+ * Hace sonar el Buzzer a un frecuencia determinada
+ * parametros: (uint32_t) frecuencia, (uint32_t) milisegundos
+ */
+void Sound(uint32_t freq, uint32_t mseg){
+	if(mseg <= 0)
+		return;
+
+	// Si ya estaba activo el PWM para el led WBLUE se desactiva
+	if (pwm_started == WBLUE){
+		pwm_started = 0;
+		PWM_Stop();
+		PWM_DeInit();
+	}
+
+	if (pwm_started == 0){
+		pwm_started = BUZZER;
+		PWM_Init(kSWM_PortPin_P0_28);
+		PWM_Start(freq, 50);
+		Delay(mseg);
+		PWM_Stop();
+		PWM_DeInit();
+		pwm_started = 0;
+	}
+}
+//------------------------------------------------------------------------------------------------------
+/*!
+ * Hace sonar el Buzzer a 2500kHz
+ * parametros: (uint32_t) milisegundos
+ */
+void Beep(uint32_t mseg){
+	Sound(2500,mseg);
 }
 //------------------------------------------------------------------------------------------------------
 /*!
@@ -174,18 +280,18 @@ uint16_t Get_Lux(void){
 //------------------------------------------------------------------------------------------------------
 /*!
  * Escribe valor en display 7 segmentos de 2 digitos
- * parameto: (uint8_t) numero a mostrar
+ * parametro: (uint8_t) numero a mostrar
  */
 void Display_Segments(uint8_t value){
 	if(value > 99)
 		return;
 
-    (void)sprintf(dig,"%02d", value);
+	(void) sprintf(dig,"%02d", value);
 }
 //------------------------------------------------------------------------------------------------------
 /*!
  * Guarda informacion en memoria
- * parameto: (uint8_t *) mensaje
+ * parametro: (uint8_t *) mensaje
  * retorno: 0-FALSE si fallo, si no distinto de 0 (TRUE)
  */
 uint8_t Save_Text(uint8_t *text){
@@ -214,7 +320,7 @@ uint8_t Save_Text(uint8_t *text){
 //------------------------------------------------------------------------------------------------------
 /*!
  * Guarda informacion en memoria
- * parameto: (uint8_t *) mensaje
+ * parametro: (uint8_t *) mensaje
  */
 void Get_Text_Saved(uint8_t *text){
 	uint8_t *p;
